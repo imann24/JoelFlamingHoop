@@ -11,6 +11,9 @@ public class AnimationStart : MonoBehaviour {
 	private Image image;
 	private Animator anim;
 	private GameController gameController;
+
+	//This script controlls all the animations connected with the UI
+	//Buttons activate these events and Animation key events activate other parts of the game
 	void Start () {
 		image = coverImage.GetComponent<Image> ();
 		gameController = GameObject.Find ("GameController").GetComponent<GameController> ();
@@ -20,10 +23,11 @@ public class AnimationStart : MonoBehaviour {
 		StartCoroutine ("FadeDark");
 	}
 	IEnumerator FadeDark(){
+		//Fades image which covers screen
 		float percentComplete = 0f;
-		Color colorStart = image.color;
+		Color colorStart = new Color (0, 0, 0, 0f);
 		coverImage.SetActive (true);
-		Color colorEnd = new Color (0, 0, 0, 0.3f);
+		Color colorEnd = new Color (0, 0, 0, 0.4f);
 		while (percentComplete < 1.0) {
 			percentComplete += Time.deltaTime / FadeTime;
 
@@ -47,14 +51,17 @@ public class AnimationStart : MonoBehaviour {
 		scorePanel.transform.GetChild (4).gameObject.GetComponent<Text>().text = "Losses: " + gameController.losses;
 		anim.SetTrigger ("Drop");
 	}
+
 	public void Begin(){
 		gameController.GameStart ();
 	}
+
 	public void StartGame(){
 		if (!clickedStart) {
 			clickedStart = true;
 			Debug.Log ("Started");
 			anim.SetTrigger ("Start");
+			//Animation key event starts game 
 		}
 	}
 	public void Options(){
@@ -68,6 +75,8 @@ public class AnimationStart : MonoBehaviour {
 	public void Menu(){
 		anim.SetTrigger ("Menu");
 		clickedStart = false;
+		coverImage.SetActive (false);
+		//Flags to prevent double clicking
 	}
 
 

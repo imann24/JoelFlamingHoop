@@ -19,6 +19,7 @@ public class cubeBehavior : MonoBehaviour {
 //	}
 
 	void OnMouseUp(){
+		//if !clicked add a click count and change color if appendix make win true
 		if (gameController.start) {
 			if (!clicked){
 				gameController.clicks += 1;

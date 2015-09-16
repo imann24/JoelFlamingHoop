@@ -15,6 +15,7 @@ public class timer : MonoBehaviour {
 		gameController = GetComponent<GameController> ();
 	}
 	void OnGUI() {
+		//Formatted timer
 		int minutes = Mathf.FloorToInt(timeLeft / 60.0f);
 		int seconds = Mathf.FloorToInt(timeLeft - minutes * 60);
 	
@@ -24,12 +25,14 @@ public class timer : MonoBehaviour {
 	}
 // Update is called once per frame
 	void Update () {
+		//Counter updates when not disabled change color at a certain time
 		timeLeft -= Time.deltaTime * countSpeed;
 		if (timeLeft <= redFontTime) {
 			customGuiStyle.normal.textColor = Color.red;
 		} else {
 			customGuiStyle.normal.textColor = Color.blue;
 		}
+		//End game at 0s
 		if (timeLeft <= 0f) {
 			gameController.End();
 			enabled = false;
